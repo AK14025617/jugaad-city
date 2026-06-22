@@ -4,9 +4,10 @@ public class NPCBrain : MonoBehaviour
 {
     public Transform player;
 
-    public float detectionRange = 3f;
+    public float detectionRange = 5f;
+    public float chaseSpeed = 2f;
 
-    private bool detected = false;
+    private bool isChasing = false;
 
 
     void Update()
@@ -16,16 +17,34 @@ public class NPCBrain : MonoBehaviour
             player.position
         );
 
-        if(distance < detectionRange && !detected)
-        {
-            detected = true;
 
-            Debug.Log("Sharma Ji: Beta, yeh tumhara ghar nahi hai! 😂");
-        }
-
-        if(distance >= detectionRange)
+        if(distance <= detectionRange)
         {
-            detected = false;
+            if(!isChasing)
+            {
+                Debug.Log("Sharma Ji: Ruk beta! Papa ko bolta hu 😂");
+                isChasing = true;
+            }
+
+            ChasePlayer();
         }
+        else
+        {
+            isChasing = false;
+        }
+    }
+
+
+    void ChasePlayer()
+    {
+        Vector3 direction =
+            player.position - transform.position;
+
+        direction.y = 0;
+
+        transform.position +=
+            direction.normalized * chaseSpeed * Time.deltaTime;
+
+        transform.LookAt(player);
     }
 }
