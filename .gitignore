@@ -13,3 +13,5 @@
 *.sln
 
 .DS_Store
+.vscode/
+*.sln
