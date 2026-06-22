@@ -16,4 +16,4 @@
 .vscode/
 *.sln
 *.sln
-*.csproj
+*.csproj*.sln
